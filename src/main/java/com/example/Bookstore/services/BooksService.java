@@ -1,53 +1,67 @@
 package com.example.Bookstore.services;
+
+import com.example.Bookstore.dto.BookDto;
 import com.example.Bookstore.entities.Book;
-import com.example.Bookstore.Repository.BookRepository;
-import com.example.Bookstore.entities.BookStore;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.Bookstore.repository.BookRepository;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 public class BooksService {
 
-    @Autowired
-    private BookRepository bookRepository ;
+    private final BookRepository bookRepository;
+    private final ModelMapper modelMapper;
 
-
-
-
-    public Book addBook(Book book){
-
-       return bookRepository.save(book);
+    public BooksService(BookRepository bookRepository, ModelMapper modelMapper) {
+        this.bookRepository = bookRepository;
+        this.modelMapper = modelMapper;
     }
 
-    public  Book findByid(Long id) {
-        return bookRepository.findById(id).orElseThrow(() -> new RuntimeException("kitabınız bulunamadı" + id));
-    }
-    public List<Book> getAllBook()
-    {
 
-        return bookRepository.findAll();
+    public BookDto addBook(BookDto bookDto) {
+        Book book = modelMapper.map(bookDto, Book.class);
+
+        return modelMapper.map(bookRepository.save(book), BookDto.class);
     }
 
-    public Book updateById(Long id, Book book) {
-        Book yeniBook = this.findByid(id);
+    public BookDto findByid(Long id) {
+
+        Optional<Book> book = bookRepository.findById(id);
+        if (book.isPresent()) {
+            return modelMapper.map(book.get(), BookDto.class);
+        }
+        return null;
+
+    }
+
+    public List<BookDto> getAllBook() {
+        List<Book> books = bookRepository.findAll();
+        List<BookDto> bookdtos = books.stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
+        return bookdtos;
+    }
+
+    public BookDto updateById(Long id, BookDto book) {
+        BookDto yeniBook = this.findByid(id);
         yeniBook.setBookName(book.getBookName());
         yeniBook.setAuthor(book.getAuthor());
         yeniBook.setDescription(book.getDescription());
-        yeniBook.setPrice(book.getPrice());
         yeniBook.setImage(book.getImage());
         yeniBook.setCategory(book.getCategory());
         yeniBook.setBookstores(book.getBookstores());
-        return bookRepository.save(yeniBook);
+        return modelMapper.map(bookRepository.save(modelMapper.map(yeniBook, Book.class)), BookDto.class);
     }
 
 
     public void deleteBook(Long id) {
 
-        Book yeniBook =this.findByid(id);
-       bookRepository.delete(yeniBook);
+        BookDto yeniBook = this.findByid(id);
+        bookRepository.delete(modelMapper.map(yeniBook, Book.class));
 
     }
 

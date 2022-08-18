@@ -11,12 +11,12 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name="book")
+@Table(name = "book")
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Book  {
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,17 +35,13 @@ public class Book  {
             mappedBy = "bookstorebook")
     @JsonIgnoreProperties({"bookstorebook"})
     @ToString.Exclude
-    private Set <BookStore> bookstores=new HashSet<>();
-
+    private Set<BookStore> bookstores = new HashSet<>();
 
 
     @JsonIgnoreProperties({"books"})
     @ManyToOne
-   @JoinColumn(name="category_id")
-   private Category category;
-
-
-
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 
 }
