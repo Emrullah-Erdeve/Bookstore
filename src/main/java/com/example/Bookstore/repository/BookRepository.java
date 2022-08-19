@@ -1,4 +1,4 @@
-package com.example.Bookstore.Repository;
+package com.example.Bookstore.repository;
 
 import com.example.Bookstore.entities.Book;
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book,Long> {
-List<Book> findByCategory_Cid(Integer cid);
+public interface BookRepository extends JpaRepository<Book, Long> {
+    List<Book> findByCategory_Cid(Integer cid);
 }

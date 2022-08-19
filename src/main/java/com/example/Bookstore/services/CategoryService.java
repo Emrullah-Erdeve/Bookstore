@@ -1,52 +1,62 @@
 package com.example.Bookstore.services;
 
 
-import com.example.Bookstore.Repository.BookRepository;
-import com.example.Bookstore.Repository.CategoryRepository;
+import com.example.Bookstore.repository.BookRepository;
+import com.example.Bookstore.repository.CategoryRepository;
+import com.example.Bookstore.dto.BookDto;
+import com.example.Bookstore.dto.CategoryDto;
 import com.example.Bookstore.entities.Book;
 import com.example.Bookstore.entities.Category;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryService {
 
 
-    private final BookRepository bookRepository ;
+    private final BookRepository bookRepository;
+    private final ModelMapper modelMapper;
+    private final CategoryRepository categoryRepository;
 
-    private final CategoryRepository category_repositor;
 
-
-    public CategoryService(CategoryRepository category_repositor, BookRepository bookRepository, BookRepository bookRepository1) {
-        this.category_repositor = category_repositor;
-        this.bookRepository = bookRepository1;
+    public CategoryService(CategoryRepository categoryRepository, BookRepository bookRepository, ModelMapper modelMapper) {
+        this.categoryRepository = categoryRepository;
+        this.bookRepository = bookRepository;
+        this.modelMapper = modelMapper;
     }
 
-public Optional <Category> findById(Integer id)
-{
-    return category_repositor.findById(id);
-}
-public Category saveCategory(Category category)
-{
-    return category_repositor.save(category);
-}
+    public CategoryDto findById(Integer id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent()) {
+            return modelMapper.map(category.get(), CategoryDto.class);
+        }
+        return null;
+    }
 
 
+    public CategoryDto saveCategory(CategoryDto categorydto) {
+        Category category = modelMapper.map(categorydto, Category.class);
 
-    public List<Book> bookListByCategory(Integer id) {
-
-        return bookRepository.findByCategory_Cid(id);
-
+        return modelMapper.map(categoryRepository.save(category), CategoryDto.class);
 
     }
 
-    public List<Category> getAllCategory() {return category_repositor.findAll();
+    public List<BookDto> bookListByCategory(Integer id) {
+        List<Book> book = bookRepository.findByCategory_Cid(id);
+        List<BookDto> bookDtos = book.stream().map(book1 -> modelMapper.map(book1, BookDto.class)).collect(Collectors.toList());
+        return bookDtos;
+
     }
 
-    public void deleteCategory(Integer id) {
-
-        category_repositor.deleteByCid(id);
+    public List<CategoryDto> getAllCategory() {
+        List<Category> categories = categoryRepository.findAll();
+        List<CategoryDto> categoryDtos1 = categories.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
+        return categoryDtos1;
     }
+
+
 }
