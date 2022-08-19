@@ -15,8 +15,8 @@ import java.util.Optional;
 @RequestMapping("/category")
 public class CategoryController {
 
-    private CategoryService category_service;
-    private ModelMapper modelMapper;
+    private final CategoryService category_service;
+    private final ModelMapper modelMapper;
 
     public CategoryController(CategoryService category_service, ModelMapper modelMapper) {
         this.category_service = category_service;

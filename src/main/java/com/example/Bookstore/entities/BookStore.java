@@ -24,14 +24,8 @@ public class BookStore {
     private Long zamOranı;
 
     @JsonIgnoreProperties({"bookstores"})
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "bookstore_book",
-            joinColumns = {@JoinColumn(name = "bookstore_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_id")})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "bookstore_book", joinColumns = {@JoinColumn(name = "bookstore_id")}, inverseJoinColumns = {@JoinColumn(name = "book_id")})
     @ToString.Exclude
     private Set<Book> bookstorebook = new HashSet<>();
 

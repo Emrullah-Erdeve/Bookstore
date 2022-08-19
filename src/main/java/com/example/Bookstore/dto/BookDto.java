@@ -18,7 +18,6 @@ public class BookDto {
     private String description;
 
     private Long price;
-
     @JsonIgnoreProperties({"books"})
     private Category category;
 

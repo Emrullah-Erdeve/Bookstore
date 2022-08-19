@@ -3,7 +3,6 @@ package com.example.Bookstore.controller;
 
 import com.example.Bookstore.dto.BookDto;
 import com.example.Bookstore.dto.BookStoreDto;
-import com.example.Bookstore.dto.CategoryDto;
 import com.example.Bookstore.entities.Book;
 import com.example.Bookstore.entities.BookStore;
 

@@ -2,12 +2,11 @@ package com.example.Bookstore.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
-import org.hibernate.Hibernate;
+
 
 import javax.persistence.*;
 import java.net.URL;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -27,12 +26,7 @@ public class Book {
     private URL image;
 
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "bookstorebook")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "bookstorebook")
     @JsonIgnoreProperties({"bookstorebook"})
     @ToString.Exclude
     private Set<BookStore> bookstores = new HashSet<>();
