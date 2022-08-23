@@ -14,6 +14,7 @@ public class CategoryDto {
     private Integer cid;
     private String categoryName;
     private String descate;
+
     @JsonIgnoreProperties({"category"})
     private Set<Book> books;
 }

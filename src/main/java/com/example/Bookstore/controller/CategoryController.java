@@ -27,7 +27,6 @@ public class CategoryController {
 
     @PostMapping("/add")
     public Optional<CategoryDto> saveCategory(@RequestBody CategoryDto categoryDto) {
-        categoryDto = modelMapper.map(categoryDto, CategoryDto.class);
         return Optional.ofNullable(category_service.saveCategory(categoryDto));
     }
 
@@ -41,7 +40,6 @@ public class CategoryController {
     public List<BookDto> getByCategory(@PathVariable Integer id) {
         return category_service.bookListByCategory(id);
     }
-
 
     @GetMapping("/getall")
     public List<CategoryDto> getallbook() {

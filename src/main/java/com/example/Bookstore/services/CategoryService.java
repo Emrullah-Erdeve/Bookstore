@@ -37,7 +37,6 @@ public class CategoryService {
         return null;
     }
 
-
     public CategoryDto saveCategory(CategoryDto categorydto) {
         Category category = modelMapper.map(categorydto, Category.class);
 
@@ -46,16 +45,16 @@ public class CategoryService {
     }
 
     public List<BookDto> bookListByCategory(Integer id) {
-        List<Book> book = bookRepository.findByCategory_Cid(id);
-        List<BookDto> bookDtos = book.stream().map(book1 -> modelMapper.map(book1, BookDto.class)).collect(Collectors.toList());
-        return bookDtos;
+        List<Book> books = bookRepository.findByCategory_Cid(id);
+        return  books.stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
+
 
     }
 
     public List<CategoryDto> getAllCategory() {
         List<Category> categories = categoryRepository.findAll();
-        List<CategoryDto> categoryDtos1 = categories.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
-        return categoryDtos1;
+        return  categories.stream().map(category -> modelMapper.map(category, CategoryDto.class)).collect(Collectors.toList());
+
     }
 
 

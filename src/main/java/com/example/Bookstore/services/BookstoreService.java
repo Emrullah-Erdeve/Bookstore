@@ -6,6 +6,7 @@ import com.example.Bookstore.repository.BookRepository;
 import com.example.Bookstore.repository.BookStoreRepository;
 import com.example.Bookstore.dto.BookStoreDto;
 import com.example.Bookstore.entities.BookStore;
+import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,9 @@ public class BookstoreService {
     }
 
     public BookStoreDto saveBookStore(BookStoreDto bookStoredto) {
-        BookStore bookStore1 = modelMapper.map(bookStoredto, BookStore.class);
+        BookStore bookStore = modelMapper.map(bookStoredto, BookStore.class);
 
-        return modelMapper.map(bookStoreRepository.save(bookStore1), BookStoreDto.class);
+        return modelMapper.map(bookStoreRepository.save(bookStore), BookStoreDto.class);
 
     }
 
@@ -39,10 +40,8 @@ public class BookstoreService {
             return modelMapper.map(bookStore.get(), BookStoreDto.class);
         }
         throw new RuntimeException("book id not found");
-
-
     }
-
+//if ekle
     public BookStoreDto updateById(Long id, BookStoreDto bookStore) {
         BookStoreDto currentBookStore = this.findByid(id);
         currentBookStore.setBookStoreName(bookStore.getBookStoreName());
@@ -54,12 +53,11 @@ public class BookstoreService {
 
     public List<BookStoreDto> getAllBookstore() {
         List<BookStore> bookStores = bookStoreRepository.findAll();
-        List<BookStoreDto> bookStores1 = bookStores.stream().map(bookstore -> modelMapper.map(bookstore, BookStoreDto.class)).collect(Collectors.toList());
-        return bookStores1;
+       return bookStores.stream().map(bookstore -> modelMapper.map(bookstore, BookStoreDto.class)).collect(Collectors.toList());
     }
 
 
-    public BookStoreDto bookstoredelete( Long bookStoreId,Long bookId) {
+    public BookStoreDto bookstoredelete(Long bookStoreId, Long bookId) {
         Optional <Book> book =bookRepository.findById((bookId));
         Optional <BookStore> bookStore =bookStoreRepository.findById(bookStoreId);
         bookStore.get().getBookstorebook().remove(book.get());

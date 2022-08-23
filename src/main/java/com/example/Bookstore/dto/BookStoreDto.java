@@ -15,8 +15,10 @@ public class BookStoreDto {
     private Long id;
     private String bookStoreName;
     private String City;
+    //city
     private Long zamOranı;
 
     @JsonIgnoreProperties({"bookstores"})
     private Set<Book> bookstorebook;
+    //bookStoreBook
 }

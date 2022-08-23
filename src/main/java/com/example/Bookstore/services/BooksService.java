@@ -23,7 +23,6 @@ public class BooksService {
         this.modelMapper = modelMapper;
     }
 
-
     public BookDto addBook(BookDto bookDto) {
         Book book = modelMapper.map(bookDto, Book.class);
 
@@ -42,10 +41,10 @@ public class BooksService {
 
     public List<BookDto> getAllBook() {
         List<Book> books = bookRepository.findAll();
-        List<BookDto> bookdtos = books.stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
-        return bookdtos;
-    }
+       return books.stream().map(book -> modelMapper.map(book, BookDto.class)).collect(Collectors.toList());
 
+    }
+//void yapılmalı new yaz
     public BookDto  updateById(Long id, BookDto book) {
         BookDto yeniBook = this.findByid(id);
         yeniBook.setBookName(book.getBookName());
@@ -56,7 +55,6 @@ public class BooksService {
         yeniBook.setBookstores(book.getBookstores());
         return modelMapper.map(bookRepository.save(modelMapper.map(yeniBook, Book.class)), BookDto.class);
     }
-
 
     public void deleteBook(Long id) {
 

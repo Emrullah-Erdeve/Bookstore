@@ -15,9 +15,9 @@ public class BookDto {
     private Long id;
     private String bookName;
     private String Author;
+    //author küçük olucak.
     private URL image;
     private String description;
-
     private Long price;
 
     @JsonIgnoreProperties({"books"})

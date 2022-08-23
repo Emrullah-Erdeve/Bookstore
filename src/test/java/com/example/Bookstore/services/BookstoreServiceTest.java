@@ -24,23 +24,23 @@ class BookstoreServiceTest {
 
         bookStoreRepository = Mockito.mock(BookStoreRepository.class);
         modelMapper = Mockito.mock(ModelMapper.class);
-       bookRepository=Mockito.mock(BookRepository.class);
+        bookRepository = Mockito.mock(BookRepository.class);
         bookstoreService = new BookstoreService(bookRepository, bookStoreRepository, modelMapper);
     }
 
     @Test
-    public void whenSaveBookStoreReturnShouldBookStore() {
+    void whenSaveBookStoreReturnShouldBookStore() {
         BookStoreDto bookStoreDto = new BookStoreDto();
         bookStoreDto.setBookStoreName("kitapkurdu");
         bookStoreDto.setCity("ankara");
-        bookStoreDto.setZamOranı((long) 12.5);
+        bookStoreDto.setZamOranı((long) 120);
         bookStoreDto.setBookstorebook(null);
 
-        BookStore bookStore1 = new BookStore();
+        BookStore bookStore = new BookStore();
 
-        Mockito.when(modelMapper.map(bookStoreDto, BookStore.class)).thenReturn(bookStore1);
-        Mockito.when(bookStoreRepository.save(bookStore1)).thenReturn(bookStore1);
-        Mockito.when(modelMapper.map(bookStore1, BookStoreDto.class)).thenReturn(bookStoreDto);
+        Mockito.when(modelMapper.map(bookStoreDto, BookStore.class)).thenReturn(bookStore);
+        Mockito.when(bookStoreRepository.save(bookStore)).thenReturn(bookStore);
+        Mockito.when(modelMapper.map(bookStore, BookStoreDto.class)).thenReturn(bookStoreDto);
 
         BookStoreDto result = bookstoreService.saveBookStore(bookStoreDto);
 

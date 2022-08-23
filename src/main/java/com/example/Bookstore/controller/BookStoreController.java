@@ -35,7 +35,7 @@ public class BookStoreController {
 
     @PostMapping("/add")
     public BookStoreDto saveBookstore(@RequestBody BookStoreDto bookStoreDto) {
-        bookStoreDto = modelMapper.map(bookStoreDto, BookStoreDto.class);
+
         return bookstoreService.saveBookStore(bookStoreDto);
     }
 
@@ -43,7 +43,7 @@ public class BookStoreController {
     public BookStoreDto BookStorefindBookInRepository(@PathVariable Long id) {
         return bookstoreService.findByid(id);
     }
-
+//taşıma servise
     @PutMapping("/put/{bookStoreId}/books/{bookId}")
     public BookStoreDto bookToBookStore(@PathVariable Long bookStoreId, @PathVariable Long bookId) {
         BookStoreDto bookStore = bookstoreService.findByid(bookStoreId);
@@ -56,7 +56,7 @@ public class BookStoreController {
     @PutMapping ("/delete/{bookStoreId}/books/{bookId}")
     BookStoreDto deleteBookBookStore(@PathVariable Long bookStoreId, @PathVariable Long bookId) {
      return bookstoreService.bookstoredelete(bookStoreId,bookId);
-
+//camel case
     }
     @GetMapping("/getall")
     public List<BookStoreDto> getallbook() {

@@ -14,37 +14,37 @@ import java.util.List;
 public class BookController {
 
 
-    private final BooksService books_service;
+    private final BooksService booksService;
     private final ModelMapper modelMapper;
 
     public BookController(BooksService books_service, ModelMapper modelMapper) {
-        this.books_service = books_service;
+        this.booksService = books_service;
         this.modelMapper = modelMapper;
     }
 
-
+// BOŞLUKLAR CAMEL CASE
     @PostMapping("/add")
     public BookDto saveBook(@RequestBody BookDto bookdto) {
-        bookdto = modelMapper.map(bookdto, BookDto.class);
-        return books_service.addBook(bookdto);
+
+        return booksService.addBook(bookdto);
 
     }
-
-    @GetMapping("/netbook/{id}")
+//kebapca-se
+    @GetMapping("/get-book/{id}")
     public BookDto getBook(@PathVariable Long id) {
 
-        return books_service.findByid(id);
+        return booksService.findByid(id);
     }
-
+//kebap-case
     @GetMapping("/getall")
     public List<BookDto> getallbook() {
-        return books_service.getAllBook();
+        return booksService.getAllBook();
     }
 
     @PostMapping("/delete/{id}")
     public String deleteBook(@PathVariable Long id) {
 
-        books_service.deleteBook(id);
+        booksService.deleteBook(id);
         return "successfully";
 
     }
