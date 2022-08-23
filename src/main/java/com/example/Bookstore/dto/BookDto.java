@@ -12,6 +12,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode
 public class BookDto {
+    private Long id;
     private String bookName;
     private String Author;
     private URL image;
@@ -22,6 +23,6 @@ public class BookDto {
     @JsonIgnoreProperties({"books"})
     private Category category;
 
-    @JsonIgnoreProperties({"bookStoreBooks", "id"})
+    @JsonIgnoreProperties({"bookStoreBooks","id"})
     private Set<BookStore> bookstores;
 }

@@ -30,7 +30,7 @@ public class Book {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.REMOVE
             },
             mappedBy = "bookstorebook")
     @JsonIgnoreProperties({"bookstorebook"})

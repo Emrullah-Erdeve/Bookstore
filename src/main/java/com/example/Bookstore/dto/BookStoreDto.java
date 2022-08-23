@@ -12,11 +12,11 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode
 public class BookStoreDto {
-
+    private Long id;
     private String bookStoreName;
     private String City;
     private Long zamOranı;
 
-    @JsonIgnoreProperties({"bookstores", "id"})
+    @JsonIgnoreProperties({"bookstores"})
     private Set<Book> bookstorebook;
 }

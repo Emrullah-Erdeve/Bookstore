@@ -27,7 +27,7 @@ public class BookStore {
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE
+                    CascadeType.REMOVE
             })
     @JoinTable(name = "bookstore_book",
             joinColumns = {@JoinColumn(name = "bookstore_id")},

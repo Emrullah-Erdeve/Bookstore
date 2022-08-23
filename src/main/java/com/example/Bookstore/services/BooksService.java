@@ -46,7 +46,7 @@ public class BooksService {
         return bookdtos;
     }
 
-    public BookDto updateById(Long id, BookDto book) {
+    public BookDto  updateById(Long id, BookDto book) {
         BookDto yeniBook = this.findByid(id);
         yeniBook.setBookName(book.getBookName());
         yeniBook.setAuthor(book.getAuthor());

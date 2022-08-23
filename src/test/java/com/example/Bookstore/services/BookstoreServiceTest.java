@@ -1,6 +1,7 @@
 package com.example.Bookstore.services;
 
 import com.example.Bookstore.entities.BookStore;
+import com.example.Bookstore.repository.BookRepository;
 import com.example.Bookstore.repository.BookStoreRepository;
 import com.example.Bookstore.dto.BookStoreDto;
 
@@ -16,13 +17,15 @@ class BookstoreServiceTest {
     private BookstoreService bookstoreService;
     private ModelMapper modelMapper;
     private BookStoreRepository bookStoreRepository;
+    private BookRepository bookRepository;
 
     @BeforeEach
     void setUp() {
 
         bookStoreRepository = Mockito.mock(BookStoreRepository.class);
         modelMapper = Mockito.mock(ModelMapper.class);
-        bookstoreService = new BookstoreService(bookStoreRepository, modelMapper);
+       bookRepository=Mockito.mock(BookRepository.class);
+        bookstoreService = new BookstoreService(bookRepository, bookStoreRepository, modelMapper);
     }
 
     @Test

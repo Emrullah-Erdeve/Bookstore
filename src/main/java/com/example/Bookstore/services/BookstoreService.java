@@ -1,5 +1,8 @@
 package com.example.Bookstore.services;
 
+import com.example.Bookstore.dto.BookDto;
+import com.example.Bookstore.entities.Book;
+import com.example.Bookstore.repository.BookRepository;
 import com.example.Bookstore.repository.BookStoreRepository;
 import com.example.Bookstore.dto.BookStoreDto;
 import com.example.Bookstore.entities.BookStore;
@@ -12,11 +15,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookstoreService {
-
+    private final BookRepository bookRepository;
     private final BookStoreRepository bookStoreRepository;
     private final ModelMapper modelMapper;
 
-    public BookstoreService(BookStoreRepository bookStoreRepository, ModelMapper modelMapper) {
+    public BookstoreService(BookRepository bookRepository, BookStoreRepository bookStoreRepository, ModelMapper modelMapper) {
+        this.bookRepository = bookRepository;
         this.bookStoreRepository = bookStoreRepository;
         this.modelMapper = modelMapper;
     }
@@ -34,7 +38,7 @@ public class BookstoreService {
         if (bookStore.isPresent()) {
             return modelMapper.map(bookStore.get(), BookStoreDto.class);
         }
-        return null;
+        throw new RuntimeException("book id not found");
 
 
     }
@@ -52,5 +56,13 @@ public class BookstoreService {
         List<BookStore> bookStores = bookStoreRepository.findAll();
         List<BookStoreDto> bookStores1 = bookStores.stream().map(bookstore -> modelMapper.map(bookstore, BookStoreDto.class)).collect(Collectors.toList());
         return bookStores1;
+    }
+
+
+    public BookStoreDto bookstoredelete( Long bookStoreId,Long bookId) {
+        Optional <Book> book =bookRepository.findById((bookId));
+        Optional <BookStore> bookStore =bookStoreRepository.findById(bookStoreId);
+        bookStore.get().getBookstorebook().remove(book.get());
+        return updateById(bookStoreId,modelMapper.map(bookStore.get(),BookStoreDto.class));
     }
 }
